@@ -12,14 +12,38 @@ class HomePageController extends GetxController {
         printTime: false // Should each log print contain a timestamp
         ),
   );
-  RxInt counter = 0.obs;
 
-  void intrement() {
-    counter++;
-    logger.d('Counter incremented to: $counter');
+  //Obs
+  RxInt _obsCounter = 0.obs;
+  void obsIncrement() {
+    _obsCounter++;
+    logger.d('Incremented to: $_obsCounter');
   }
 
-  int getCounter() {
-    return counter.toInt();
+  int getObsCounter() {
+    return _obsCounter.toInt();
+  }
+
+  //Getx
+  RxInt _getXCounter = 0.obs;
+  void getXIncrement() {
+    _getXCounter++;
+    logger.d('Incremented to: $_getXCounter');
+  }
+
+  int getGetxCounter() {
+    return _getXCounter.toInt();
+  }
+
+  //Get Builder
+  int _getBuilderCounter = 0;
+  void getBuilderIncrement() {
+    _getBuilderCounter++;
+    update();
+    logger.d('Incremented to: $_getBuilderCounter');
+  }
+
+  int getBuilderCounter() {
+    return _getBuilderCounter.toInt();
   }
 }

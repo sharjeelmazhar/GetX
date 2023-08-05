@@ -1,52 +1,107 @@
-import 'package:default_stateful_counter_app_to_stateless_using_getx/models/home_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../models/home_page_controller.dart';
+
+
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  final HomePageController homePageController = Get.put(HomePageController());
-
+  final HomePageController homepageController = Get.put(HomePageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple.shade200,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 94, 17, 174),
-        title: const Center(
-          child: Text('GetX'),
-        ),
+        title: const Center(child: Text('Getx')),
       ),
-      body: Center(
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Obx(
-              () => Text(
-                'You\'ve pressed: ${homePageController.getCounter().toString()} times using Obx',
-                style: const TextStyle(
-                  fontSize: 26,
-                ),
+            Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(
+                    () => Text(
+                      'Obs Increment: ${homepageController.getObsCounter().toString()}',
+                      style: const TextStyle(fontSize: 25),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  GetX<HomePageController>(
+                    builder: (getXController) {
+                      return Text(
+                        'GetX Increment: ${getXController.getGetxCounter().toString()}',
+                        style: const TextStyle(fontSize: 25),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  GetBuilder<HomePageController>(
+                    builder: (getBuilderConroller) {
+                      return Text(
+                        'GetBuilder Increment: ${getBuilderConroller.getBuilderCounter()}',
+                        style: const TextStyle(fontSize: 25),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
-            // GetX<HomePageController>(
-            //   builder: (controller) {
-            //     return Center(
-            //       child: Text(
-            //           'You\'ve pressed: ${controller.getCounter().toString()} times using GetX',
-            //           style: const TextStyle(
-            //             fontSize: 25,
-            //           )),
-            //     );
-            //   },
-            // ),
+            Expanded(
+              flex: 1,
+              child: ListView(
+                // physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(8),
+                // scrollDirection: Axis.horizontal,
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FloatingActionButton.extended(
+                    onPressed: () => homepageController.obsIncrement(),
+                    icon: const Icon(Icons.add),
+                    label: const Text(
+                      'Obs',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    backgroundColor: Colors.pink,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FloatingActionButton.extended(
+                    onPressed: () => homepageController.getXIncrement(),
+                    icon: const Icon(Icons.add),
+                    label: const Text(
+                      'GetX',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    backgroundColor: Colors.deepPurple,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FloatingActionButton.extended(
+                    onPressed: () => homepageController.getBuilderIncrement(),
+                    icon: const Icon(Icons.add),
+                    label: const Text(
+                      'GetBuilder',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    backgroundColor: Colors.lightGreen,
+                  ),
+                ],
+              ),
+            )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 94, 17, 174),
-        onPressed: () => homePageController.intrement(),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
