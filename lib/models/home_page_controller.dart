@@ -12,14 +12,14 @@ class HomePageController extends GetxController {
         printTime: false // Should each log print contain a timestamp
         ),
   );
-  RxInt _counter = 0.obs;
+  RxInt counter = 0.obs;
 
   void intrement() {
-    _counter++;
-    logger.d('Counter incremented to: $_counter');
+    counter++;
+    logger.d('Counter incremented to: $counter');
   }
 
   int getCounter() {
-    return _counter.toInt();
+    return counter.toInt();
   }
 }

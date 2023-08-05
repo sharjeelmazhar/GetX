@@ -19,46 +19,34 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              flex: 2,
-              // ! There are there way which you can use
-              // ! 1) Obx, 2) Getx, 3) GetBuilder (with this your variable shouldn't be observable, i.e obs)
-
-              child: Obx(
-                () => Center(
-                  child: Text(
-                    'You\'ve pressed: ${homePageController.getCounter().toString()}',
-                    style: const TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
+            Obx(
+              () => Text(
+                'You\'ve pressed: ${homePageController.getCounter().toString()} times using Obx',
+                style: const TextStyle(
+                  fontSize: 26,
                 ),
               ),
-
-              // child: GetX<HomePageController>(
-              //   builder: (controller) {
-              //     return Center(
-              //       child: Text(
-              //           'You\'ve pressed: ${controller.getCounter().toString()}',
-              //           style: const TextStyle(
-              //             fontSize: 30,
-              //           )),
-              //     );
-              //   },
-              // ),
             ),
-            Expanded(
-              child: FloatingActionButton(
-                backgroundColor: const Color.fromARGB(255, 94, 17, 174),
-                onPressed: () => homePageController.intrement(),
-                tooltip: 'Increment',
-                child: const Icon(Icons.add),
-              ),
-            ),
+            // GetX<HomePageController>(
+            //   builder: (controller) {
+            //     return Center(
+            //       child: Text(
+            //           'You\'ve pressed: ${controller.getCounter().toString()} times using GetX',
+            //           style: const TextStyle(
+            //             fontSize: 25,
+            //           )),
+            //     );
+            //   },
+            // ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 94, 17, 174),
+        onPressed: () => homePageController.intrement(),
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
